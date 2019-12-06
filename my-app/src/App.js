@@ -92,6 +92,7 @@ class App extends React.Component {
       filtroMin: null,
       filtroMax: Infinity,
       filtroTexto: "",
+      ordem: "",
     }
   }
 
@@ -148,15 +149,25 @@ class App extends React.Component {
     })
   }
 
+  atualizarSeletorOrdem = (ordem) => {
+    const ordenado = ordem
+    this.setState({ordem: ordenado,})
+  }
+
+  ordenaProdutosDaLista = (A,B) => {
+    if (this.state.ordem === 'crescente') {
+      return 
+    }
+  }
+
+
+
   filtroListaDeProduto = () => {
    return listaProdutos.filter((item) => {
      if(item.valor > this.state.filtroMin) {
        return true
-       console.log("Filtrou")
-
      }else{
        return false
-       console.log("Nãofiltrou")
      }
    }).filter((item) => {
     if(item.valor < this.state.filtroMax) { 
@@ -175,14 +186,12 @@ class App extends React.Component {
 
   render(){
     const listaFiltrada = this.filtroListaDeProduto()
-    console.log(listaProdutos)
-    console.log(this.state.filtroTexto)
     return (
       <div className="App">
         <SideBar titulo="Filtro:">
           <Filtro atualizarFiltroMin={this.atualizarFiltroMin} atualizarFiltroMax={this.atualizarFiltroMax} atualizarFiltroTexto={this.atualizarFiltroTexto}/>
         </SideBar>
-        <Section adicionarNoCarrinho={this.adicionarNoCarrinho} listaDeProdutos= {listaFiltrada}/>  
+        <Section atualizarSeletorOrdem={this.atualizarSeletorOrdem} adicionarNoCarrinho={this.adicionarNoCarrinho} listaDeProdutos= {listaFiltrada}/>  
         {this.state.mostraCarrinho && <SideBar titulo="Carrinho:">
           <Carrinho removerCarrinho={this.removerCarrinho} listaCarrinho={this.state.carrinho} listaDeProdutos={listaProdutos}/>
         </SideBar>}

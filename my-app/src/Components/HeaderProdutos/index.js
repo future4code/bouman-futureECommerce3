@@ -20,13 +20,21 @@ const SeletorPreco = styled.select `
 const Opcao = styled.option `
 `
 
+
+
 function HeaderProdutos(props) {
+  const seletorOrdem = (event) => {
+    const ordem = (event.target.value)
+    console.log(event.target.value)
+    props.atualizarSeletorOrdem(ordem)
+  }
+
   return (
       <Container>
-<ContadorProdutos>Quantidade de Produtos: {props.listaDeProdutos.length}</ContadorProdutos>
-        <SeletorPreco>
-            <Opcao>Preço: Crescente</Opcao>
-            <Opcao>Preço: Decrescente</Opcao>
+        <ContadorProdutos>Quantidade de Produtos: {props.listaDeProdutos.length}</ContadorProdutos>
+        <SeletorPreco onChange={seletorOrdem}>
+            <Opcao value='crescente'>Preço: Crescente</Opcao>
+            <Opcao value='decrescente'>Preço: Decrescente</Opcao>
         </SeletorPreco>
       </Container>
   );
