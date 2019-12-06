@@ -6,14 +6,22 @@ const Total = styled.p`
 `
 
 
-
 function Carrinho(props) {
+    let soma  = 0
+    for(let item of props.listaCarrinho) {
+        soma = soma + (item.valor * item.quantidade)
+    }
     return (
     <div>
         {props.listaCarrinho.map(item => {
-            return <li>{item.quantidade}x {item.nomeDoProduto} <span onClick={props.removerCarrinho} >X</span></li>
+            const enviarId = (id) => {
+            props.removerCarrinho(item.id)
+            console.log(item.id)}
+            return <li>{item.quantidade}x {item.nomeDoProduto} 
+            <span onClick={enviarId} >X</span></li>
         })}
-        <Total>Total:</Total>
+        <Total>Total: {soma}
+        </Total>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import HeaderProdutos from '../HeaderProdutos/index';
 import Produto from '../Produto/index'
@@ -24,7 +24,7 @@ const VitrineProdutos = styled.div `
 function Section(props) {
   return (
     <ContainerProdutos>
-      <HeaderProdutos/>
+      <HeaderProdutos listaDeProdutos={props.listaDeProdutos}/>
       <VitrineProdutos>
         {props.listaDeProdutos.map(item => {
           return <Produto adicionarNoCarrinho={props.adicionarNoCarrinho} id={item.id} nomeDoProduto={item.nomeDoProduto} urlImagem={item.urlImagem} valor={item.valor}/>

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { tsPropertySignature } from '@babel/types';
 
 
 
@@ -12,21 +13,21 @@ const Container = styled.div`
 const ContadorProdutos = styled.p `
 `
 
-const SeletorPreço = styled.select `
+const SeletorPreco = styled.select `
 
 `
 
 const Opcao = styled.option `
 `
 
-function HeaderProdutos() {
+function HeaderProdutos(props) {
   return (
       <Container>
-        <ContadorProdutos>Quantidade de Produtos: 9</ContadorProdutos>
-        <SeletorPreço>
+<ContadorProdutos>Quantidade de Produtos: {props.listaDeProdutos.length}</ContadorProdutos>
+        <SeletorPreco>
             <Opcao>Preço: Crescente</Opcao>
             <Opcao>Preço: Decrescente</Opcao>
-        </SeletorPreço>
+        </SeletorPreco>
       </Container>
   );
 }

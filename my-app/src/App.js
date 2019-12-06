@@ -68,7 +68,7 @@ const listaProdutos = [
   },
 ]
 
-  const BotãoCarrinho = styled.button `
+  const BotaoCarrinho = styled.button `
     position: fixed;
     bottom: 2em;
     right: 3em;
@@ -88,6 +88,10 @@ class App extends React.Component {
     this.state = {
       mostraCarrinho: false,
       carrinho: [],
+      listaProdutos: listaProdutos,
+      filtroMin: null,
+      filtroMax: Infinity,
+      filtroTexto: "",
     }
   }
 
@@ -119,24 +123,70 @@ class App extends React.Component {
 
   removerCarrinho = (idProduto) => {
     const novoCarrinho = [...this.state.carrinho]
-    const IdProdutoRemover = listaProdutos.findIndex((objeto) => objeto.id === idProduto)
-    novoCarrinho.splice(IdProdutoRemover,1)
+    const IndexProdutoRemover = this.state.carrinho.findIndex((objeto) => objeto.id === idProduto)
+    novoCarrinho.splice(IndexProdutoRemover,1)
+
+    console.log(idProduto)
     this.setState({
       carrinho: novoCarrinho,
     })
-  } 
+  }  
+
+  atualizarFiltroMin = (valorMin) => {
+    this.setState({
+      filtroMin: valorMin,
+    })
+  }
+  atualizarFiltroMax = (valorMax) => {
+    this.setState({
+      filtroMax: valorMax,
+    })
+  }
+  atualizarFiltroTexto = (valorTexto) => {
+    this.setState({
+      filtroTexto: valorTexto,
+    })
+  }
+
+  filtroListaDeProduto = () => {
+   return listaProdutos.filter((item) => {
+     if(item.valor > this.state.filtroMin) {
+       return true
+       console.log("Filtrou")
+
+     }else{
+       return false
+       console.log("Nãofiltrou")
+     }
+   }).filter((item) => {
+    if(item.valor < this.state.filtroMax) { 
+      return true
+    }else{
+      return false
+    }
+    }).filter((texto) => {
+    if(texto.nomeDoProduto.includes(this.state.filtroTexto)) {
+      return true
+    }else{
+      return false
+    }
+  })
+  }
 
   render(){
+    const listaFiltrada = this.filtroListaDeProduto()
+    console.log(listaProdutos)
+    console.log(this.state.filtroTexto)
     return (
       <div className="App">
         <SideBar titulo="Filtro:">
-          <Filtro/>
+          <Filtro atualizarFiltroMin={this.atualizarFiltroMin} atualizarFiltroMax={this.atualizarFiltroMax} atualizarFiltroTexto={this.atualizarFiltroTexto}/>
         </SideBar>
-        <Section adicionarNoCarrinho={this.adicionarNoCarrinho} listaDeProdutos= {listaProdutos}/>  
+        <Section adicionarNoCarrinho={this.adicionarNoCarrinho} listaDeProdutos= {listaFiltrada}/>  
         {this.state.mostraCarrinho && <SideBar titulo="Carrinho:">
           <Carrinho removerCarrinho={this.removerCarrinho} listaCarrinho={this.state.carrinho} listaDeProdutos={listaProdutos}/>
         </SideBar>}
-        <BotãoCarrinho onClick={this.mostrarAreaCarrinho}><img src={IconeCarrinho}></img></BotãoCarrinho>
+        <BotaoCarrinho onClick={this.mostrarAreaCarrinho}><img alt="icone" src={IconeCarrinho}></img></BotaoCarrinho>
       </div>
     );
   }
