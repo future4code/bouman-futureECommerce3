@@ -10,8 +10,8 @@ const Total = styled.p`
 function Carrinho(props) {
     return (
     <div>
-        {props.listaDeProdutos.map(item => {
-            return <li>{item.nomeDoProduto}</li>
+        {props.listaCarrinho.map(item => {
+            return <li>{item.quantidade}x {item.nomeDoProduto} <span onClick={props.removerCarrinho} >X</span></li>
         })}
         <Total>Total:</Total>
     </div>
