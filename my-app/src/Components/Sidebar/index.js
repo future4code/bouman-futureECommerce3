@@ -1,15 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
+
 const SideBarArea = styled.div`
    border: 1px solid black;
-   width: 20vw;
-   height: 95vh;
+   width: 31vw;
+   height: 93vh;
+   padding: 0.5em;
 `
 
-const Titulo = styled.h1 `
-    margin-left: 0.2em;
+const Titulo = styled.h2 `
+    margin: 0.2em 0;
 `
+
+
 
 function SideBar(props) {
   return (
@@ -19,5 +24,7 @@ function SideBar(props) {
     </SideBarArea>
   );
 }
+
+
 
 export default SideBar;
